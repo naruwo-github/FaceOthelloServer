@@ -5,6 +5,7 @@
  */
 
 var app = require('../app');
+var sessionMiddleware = app.session;
 var debug = require('debug')('othelloserver:server');
 var http = require('http');
 
@@ -20,6 +21,17 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Use Socket.io
+ */
+
+var io = require('socket.io')(server);
+var sharedsession = require("express-socket.io-session");
+io.use(sharedsession(sessionMiddleware, {
+  autoSave:true
+})); 
+require('../socketio/socketio')(io);
 
 /**
  * Listen on provided port, on all network interfaces.
