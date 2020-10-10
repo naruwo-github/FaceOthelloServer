@@ -3,7 +3,6 @@ var router = express.Router();
 const { nanoid } = require('nanoid');
 const crud_rooms = require('../mongo/rooms');
 const mongo = require('mongodb');
-const session = require('express-session');
 const mongoClient = mongo.MongoClient;
 
 const url = 'mongodb://root:FaceOthello@mongo:27017/';
