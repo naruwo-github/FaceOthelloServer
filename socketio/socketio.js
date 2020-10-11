@@ -1,5 +1,6 @@
 module.exports = (io) => {
 
+    // sessionにroom_idが保存されていなかったらsocket.io通信を開始しない
     io.use(function(socket, next){
         if(!socket.handshake.session.room_id){
             console.log('session not found');
@@ -10,6 +11,7 @@ module.exports = (io) => {
 
     io.on('connection', (socket) => {
 
+        // sessionからroom_idを取得し、ルームに入室
         if(socket.handshake.session.room_id){
             console.log("connect:"+socket.handshake.session.room_id);
             socket.join(socket.handshake.session.room_id);

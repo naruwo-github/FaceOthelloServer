@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // use session
-var sessionMiddlewara = session({
+var sessionMiddleware = session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
@@ -28,8 +28,8 @@ var sessionMiddlewara = session({
     secure: false,
   },
 });
-app.session = sessionMiddlewara;
-app.use(sessionMiddlewara); 
+app.session = sessionMiddleware;
+app.use(sessionMiddleware); 
 
 app.use(express.static(path.join(__dirname, 'public')));
 
