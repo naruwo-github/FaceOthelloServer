@@ -10,9 +10,13 @@ services:
         depends_on: 
             - mongo
     mongo:
+        container_name: mongo
         image: mongo
         environment:
+            MONGO_INITDB_DATABASE: Rooms
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: FaceOthello
         ports:
             - 27017:27017
+        command: 
+            - mongod
