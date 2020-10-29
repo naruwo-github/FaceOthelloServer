@@ -45,6 +45,12 @@
             socketio.on('disconnect', (reason) => {
                 console.log('disconnect'+reason);
             });
+            socketio.on('exit', (msg) => {
+                console.log(msg);
+            });
+            socketio.on('enter', (data) => {
+                console.log('enter' + data);
+            });
         });
     </script>
 </body>

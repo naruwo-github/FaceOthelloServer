@@ -15,6 +15,9 @@ module.exports = (io) => {
         if(socket.handshake.session.room_id){
             console.log("connect:"+socket.handshake.session.room_id);
             socket.join(socket.handshake.session.room_id);
+            io.of('/').in(socket.handshake.session.room_id).clients((error, clients) => {
+                io.to(socket.handshake.session.room_id).emit('enter', clients.length);
+            });
         }
 
         socket.on('put stone', (data) => {
@@ -23,6 +26,12 @@ module.exports = (io) => {
 
         socket.on('send image', (image) => {
             socket.to(socket.handshake.session.room_id).emit('send image', image);
+        });
+
+        socket.on('disconnect', (msg) => {
+            socket.leave(socket.handshake.session.room_id);
+            console.log(msg);
+            socket.to(socket.handshake.session.room_id).emit('exit', 'Other player exit the room');
         });
 
     });
